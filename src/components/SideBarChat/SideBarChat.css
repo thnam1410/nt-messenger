@@ -1,0 +1,33 @@
+.sidebarChat {
+  display: flex;
+  align-content: center;
+
+  padding: 20px;
+  cursor: pointer;
+
+}
+.sidebarChat__info {
+  position: relative;
+  flex: 1;
+  text-align: left;
+
+  margin-left: 15px;
+}
+.sidebarChat__info > small {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.sidebarChat__info > p {
+  font-size: 14px;
+}
+
+ /* Hide scrollbar Chrome , Safari, Opera */
+ .sidebar__chats::-webkit-scrollbar {
+  display: none;
+}
+/*Hide scrollbar IE , Edge , Firefox*/
+.sidebar__chats {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

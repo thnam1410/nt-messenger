@@ -1,0 +1,26 @@
+.bubbleMessage {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  position: relative;
+  width: fit-content;
+}
+.bubbleMessage > p {
+  text-align: left;
+  font-size: 14px;
+  padding: 5px 15px;
+  margin-left: 5px;
+  border-radius: 10px;
+  background: #f5f6f7;
+}
+.avatar {
+  height: 30px !important;
+  width: 30px !important;
+}
+.bubbleMessage > small {
+  color: gray;
+  position: absolute;
+  font-size: 9px;
+  bottom: -5px;
+  right: 0;
+}

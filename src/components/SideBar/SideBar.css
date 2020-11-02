@@ -1,0 +1,67 @@
+.sidebar {
+  flex: 0.35;
+
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid lightgray;
+  height: 100vh;
+}
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 60px;
+}
+.sidebar__header > h2 {
+  padding: 5px;
+}
+.sidebar__header > button {
+  margin-left: auto;
+}
+.sidebar__header-avatar {
+  cursor: pointer;
+  margin: 10px;
+}
+
+.sidebar__search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 90%;
+
+  margin: 0 auto;
+  padding: 5px 10px;
+  border-radius: 10px;
+
+  color: #909090;
+  background: #f5f6f7;
+  background-size: cover;
+}
+.sidebar__search > input {
+  border: none;
+  outline-width: 0;
+  background: transparent;
+  font-size: 15px;
+  width: 100%;
+  color: #909090;
+}
+.sidebar__chats {
+  overflow: scroll;
+}
+
+.sidebar__chats :hover {
+  background: #f5f6f7;
+}
+/* Hide scrollbar Chrome , Safari, Opera */
+.sidebar__chats::-webkit-scrollbar {
+  display: none;
+}
+/*Hide scrollbar IE , Edge , Firefox*/
+.sidebar__chats {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.icon {
+  color: rgba(0, 0, 0, 1);
+}
