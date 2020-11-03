@@ -5,6 +5,7 @@
   padding: 20px;
   cursor: pointer;
 
+  border-bottom: 0.5px solid #d3d3d338;
 }
 .sidebarChat__info {
   position: relative;
@@ -18,12 +19,17 @@
   top: 0;
   right: 0;
 }
+.lock-icon {
+  position: absolute;
+  bot: 0;
+  right: 0;
+}
 .sidebarChat__info > p {
   font-size: 14px;
 }
 
- /* Hide scrollbar Chrome , Safari, Opera */
- .sidebar__chats::-webkit-scrollbar {
+/* Hide scrollbar Chrome , Safari, Opera */
+.sidebar__chats::-webkit-scrollbar {
   display: none;
 }
 /*Hide scrollbar IE , Edge , Firefox*/

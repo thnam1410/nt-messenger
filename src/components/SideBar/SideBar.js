@@ -1,4 +1,13 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import {
+  Avatar,
+  IconButton,
+  Dialog,
+  TextField,
+  DialogTitle,
+  DialogContent,
+  Button,
+  DialogActions,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./SideBar.css";
 import AddBoxIcon from "@material-ui/icons/AddBox";
@@ -10,32 +19,63 @@ import { selectUser } from "../../features/userSlice";
 
 function SideBar() {
   const [chatRoomNames, setChatRoomNames] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [roomNameDialog, setroomNameDialog] = useState("");
+  const [roomPassDialog, setroomPassDialog] = useState("");
   const user = useSelector(selectUser);
 
   const logout = () => {
     auth.signOut();
   };
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const clearDialog = () => {
+    setroomNameDialog("");
+    setroomPassDialog("");
+  };
+  const handleCloseDialog = () => {
+    clearDialog();
+    setOpenDialog(false);
+  };
+  const handleOnChangeRoomName = (event) => {
+    setroomNameDialog(event.target.value);
+  };
+  const handleOnChangeRoomPass = (event) => {
+    setroomPassDialog(event.target.value);
+  };
 
   const addChat = () => {
-    const chatRoom = prompt("Please enter your chat room name");
-    const chatRoomPassword = prompt("Password:");
-    if (chatRoomNames.includes(chatRoom)) {
-      alert("Chat Room already existed");
-    } else {
-      db.collection("chats")
-        .add({
-          chatRoom: chatRoom,
-          chatRoomPassword: chatRoomPassword,
-        })
-        .then(() => {
-          alert("Create Room Successful");
-        });
+    if (roomNameDialog) {
+      console.log(chatRoomNames);
+      if (chatRoomNames != null && chatRoomNames.includes(roomNameDialog)) {
+        alert("Chat Room already existed");
+        setOpenDialog(false);
+        clearDialog();
+      } else {
+        db.collection("chats")
+          .add({
+            chatRoom: roomNameDialog,
+            chatRoomPassword: roomPassDialog,
+          })
+          .then(() => {
+            clearDialog();
+            setOpenDialog(false);
+          });
+      }
     }
   };
 
   useEffect(() => {
     db.collection("chats").onSnapshot((snapshot) => {
-      snapshot.docs.map((doc) => setChatRoomNames(doc.data().chatRoom));
+      setChats(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+      setChatRoomNames(snapshot.docs.map((doc) => doc.data().chatRoom));
     });
   }, []);
 
@@ -50,14 +90,41 @@ function SideBar() {
         />
         <h2>Chat</h2>
 
-        <IconButton>
+        <IconButton onClick={handleOpenDialog}>
           <AddBoxIcon
-            onClick={addChat}
             className="icon"
             style={{ fontSize: 30 }}
-            color="primary"
-          />
+            color="primary"></AddBoxIcon>
         </IconButton>
+
+        <Dialog
+          open={openDialog}
+          onClose={handleCloseDialog}
+          aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Room Information:</DialogTitle>
+          <DialogContent>
+            <TextField
+              value={roomNameDialog}
+              onChange={handleOnChangeRoomName}
+              margin="dense"
+              autoFocus
+              fullWidth
+              label="Room Name"
+            />
+            <TextField
+              value={roomPassDialog}
+              onChange={handleOnChangeRoomPass}
+              argin="dense"
+              fullWidth
+              label="Pass word"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={addChat} color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
 
       {/* SideBar Search */}
@@ -68,8 +135,14 @@ function SideBar() {
 
       {/* SideBar Chat */}
       <div className="sidebar__chats">
-        <SideBarChat />
-        <SideBarChat />
+        {chats.map(({ id, data: { chatRoom, chatRoomPassword } }) => (
+          <SideBarChat
+            key={id}
+            id={id}
+            chatName={chatRoom}
+            chatRoomPass={chatRoomPassword}
+          />
+        ))}
       </div>
     </div>
   );
