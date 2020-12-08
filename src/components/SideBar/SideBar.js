@@ -48,7 +48,6 @@ function SideBar() {
 
   const addChat = () => {
     if (roomNameDialog) {
-      console.log(chatRoomNames);
       if (chatRoomNames != null && chatRoomNames.includes(roomNameDialog)) {
         alert("Chat Room already existed");
         setOpenDialog(false);
@@ -66,11 +65,16 @@ function SideBar() {
       }
     }
   };
-
+  const handleAddChat = (event) => {
+    if(event.key === "Enter"){
+      addChat()
+    }
+  }
   useEffect(() => {
     db.collection("chats").onSnapshot((snapshot) => {
       setChats(
         snapshot.docs.map((doc) => ({
+          //snapshot return array => map return value
           id: doc.id,
           data: doc.data(),
         }))
@@ -88,7 +92,7 @@ function SideBar() {
           onClick={logout}
           className="sidebar__header-avatar"
         />
-        <h2>Chat</h2>
+        <h2>Messenger</h2>
 
         <IconButton onClick={handleOpenDialog}>
           <AddBoxIcon
@@ -106,6 +110,7 @@ function SideBar() {
             <TextField
               value={roomNameDialog}
               onChange={handleOnChangeRoomName}
+              onKeyDown={handleAddChat}
               margin="dense"
               autoFocus
               fullWidth
@@ -114,6 +119,7 @@ function SideBar() {
             <TextField
               value={roomPassDialog}
               onChange={handleOnChangeRoomPass}
+              onKeyDown={handleAddChat}
               argin="dense"
               fullWidth
               label="Pass word"
@@ -141,6 +147,7 @@ function SideBar() {
             id={id}
             chatName={chatRoom}
             chatRoomPass={chatRoomPassword}
+            user={user}
           />
         ))}
       </div>

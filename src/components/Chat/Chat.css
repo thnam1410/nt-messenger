@@ -7,6 +7,10 @@
 }
 .sendIcon {
   margin-left: auto;
+  cursor: pointer;
+  position: absolute;
+  top: 50;
+  right: 10px;
 }
 .chat__header {
   display: flex;
@@ -32,6 +36,8 @@
   display: flex;
   padding: 15px 15px;
   border-top: 1px solid lightgray;
+
+  position: relative;
 }
 .chat__input > form > input {
   width: 100%;

@@ -16,7 +16,7 @@ export const chatSlice = createSlice({
 
 export const { setRoom } = chatSlice.actions;
 
-export const selectroomName = (state) => state.chat.roomName;
-export const selectroomId = (state) => state.chat.roomId;
+export const selectRoomName = (state) => state.chat.roomName;
+export const selectRoomId = (state) => state.chat.roomId;
 
 export default chatSlice.reducer;

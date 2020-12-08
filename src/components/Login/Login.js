@@ -16,7 +16,7 @@ function Login() {
           }
           alt=""
         />
-        <h1>iMessage</h1>
+        <h1>Nam Truong Messenger</h1>
       </div>
       <Button onClick={signInGoogle}>Sign In With Google</Button>
     </div>
